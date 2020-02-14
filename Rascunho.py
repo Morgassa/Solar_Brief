@@ -1,6 +1,8 @@
 # http://www.cresesb.cepel.br/index.php?section=sundata&
 
 # Acessar, preecher e pegar os dados da localização.
+# Latitude = 8.0113981
+# Longitude = 34.8734516
 
 from selenium import webdriver
 
