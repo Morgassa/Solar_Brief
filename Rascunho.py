@@ -28,10 +28,10 @@ class solar_gather_bot():
 
     def put_coords(self):
         lat_in = self.driver.find_element_by_xpath('//*[@id="latitude_dec"]')
-        lat_in.send_keys(8.666)
+        lat_in.send_keys('8.666')
 
         long_in = self.driver.find_element_by_xpath('//*[@id="longitude_dec"]')
-        long_in.send_keys(50.666)
+        long_in.send_keys('50.666')
 
         send_button = self.driver.find_element_by_xpath('//*[@id="submit_btn"]')
         send_button.click()
