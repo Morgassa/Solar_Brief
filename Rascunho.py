@@ -33,13 +33,13 @@ class solar_gather_bot():
         lat_in.send_keys('8.0113981')
 
         long_in = self.driver.find_element_by_xpath('//*[@id="longitude_dec"]')
-        long_in.send_keys('34.8734516')
+        long_in.send_keys('50.8734516')
 
         send_button = self.driver.find_element_by_xpath('//*[@id="submit_btn"]')
         send_button.click()
 
     
-    def get_gata(self):
+    def get_sun_data(self):
         print('Adquirindo os dados...')
         loc_prox = self.driver.find_element_by_xpath('//*[@id="tb_sundata"]/tbody')
         list_of_lists=[]
@@ -70,8 +70,8 @@ class solar_gather_bot():
         # print(list_of_lists)
         return(list_of_lists)
 
-    def create_database(self):
-        base = self.get_gata()
+    def sun_data_database(self):
+        base = self.get_sun_data()
         # print('cd', base)
         head_line = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
         df = pd.DataFrame(base, columns =head_line, dtype = float)
@@ -80,3 +80,30 @@ class solar_gather_bot():
 
 
 
+
+    def get_angle_data(self):
+        print('Adquirindo os dados...')
+        loc_prox = self.driver.find_element_by_xpath('//*[@id="data_output"]/table[2]/tbody') 
+        list_of_lists=[]
+   
+        for row in range(1,5):
+            list=[]
+       
+            for element in range(2,18):
+                data_string = '//*[@id="data_output"]/table[2]/tbody/tr[{}]/td[{}]'.format(row, element)
+                loc_prox = self.driver.find_element_by_xpath(data_string).text
+                if loc_prox != '':
+                    print(loc_prox)
+                    list.append(loc_prox)
+                else:
+                    print('-x-')
+                    list.append('-')
+            list_of_lists.append(list)
+            print (list)
+    
+        head = ['Ângulo', 'Inclinação', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
+
+        df = pd.DataFrame(list_of_lists, columns =head, dtype = float)
+
+        print(list_of_lists)
+        return(df)
