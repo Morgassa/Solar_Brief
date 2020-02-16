@@ -7,6 +7,14 @@ recife = [8.4, 5.73, 5.88, 5.81, 5.15, 4.44, 4.14, 4.26, 4.98, 5.38, 5.72, 5.96,
 
 
 
-//*[@id="tb_sundata"]/tbody
+#//*[@id="tb_sundata"]/tbody
 
-//*[@id="data_output"]/table[2]/tbody
+#//*[@id="data_output"]/table[2]/tbody
+
+
+for row in range(1,4):
+    for element in range(1,23):
+        print ('//*[@id="tb_sundata"]/tbody/tr[{}]/td[{}]'.format(row, element))
+
+
+
