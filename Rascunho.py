@@ -42,22 +42,41 @@ class solar_gather_bot():
     def get_gata(self):
         print('Adquirindo os dados...')
         loc_prox = self.driver.find_element_by_xpath('//*[@id="tb_sundata"]/tbody')
-
+        list_of_lists=[]
    
         for row in range(1,4):
+            list=[]
             loc_element = '//*[@id="tb_sundata"]/tbody/tr[{}]/td[{}]'.format(row, 3)
             loc_string = self.driver.find_element_by_xpath(loc_element).text
-            print('->',loc_string)
+            # print('->',loc_string)
+            list.append(loc_string)
 
-        #for row in range(1,4):
             for element in range(8,23):
                 data_string = '//*[@id="tb_sundata"]/tbody/tr[{}]/td[{}]'.format(row, element)
                 loc_prox = self.driver.find_element_by_xpath(data_string).text
                 if loc_prox != '':
-                    print(loc_prox)
+                    # print(loc_prox)
+                    list.append(loc_prox)
                 else:
-                    print('-x-')
-        
+                    # print('-x-')
+                    list.append('-')
+            list_of_lists.append(list)
+            # print (list)
+    
+        # head = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
 
-    head = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
+        # df = pd.DataFrame(list_of_lists, columns =head, dtype = float)
+
+        # print(list_of_lists)
+        return(list_of_lists)
+
+    def create_database(self):
+        base = self.get_gata()
+        # print('cd', base)
+        head_line = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
+        df = pd.DataFrame(base, columns =head_line, dtype = float)
+        # print(df)
+        return(df)
+
+
 
