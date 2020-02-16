@@ -13,4 +13,4 @@ bot.put_coords()
 # print(bot.sun_data_database())
 
 bot.get_angle_data()
-# print(bot.get_angle_data())
+

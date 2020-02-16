@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import pandas as pd
 import time
+import matplotlib.pyplot as plt
 
    
 
@@ -88,7 +89,7 @@ class solar_gather_bot():
         
         for tables in range(2,5):
             list_of_lists = []
-            
+
             for row in range(1,5):
                 list = []
         
@@ -102,11 +103,12 @@ class solar_gather_bot():
                         # print('-x-')
                         list.append('-')
                 list_of_lists.append(list)
-            print (list_of_lists)
+            # print (list_of_lists)
         
-            # head = ['Ângulo', 'Inclinação', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
+            head = ['Ângulo', 'Inclinação', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
 
-            # tables = pd.DataFrame(list_of_lists, columns =head, dtype = float)
+            tables = pd.DataFrame(list_of_lists, columns =head, dtype = float)
                 
-            # print(tables)
+            print(tables)
 
+         
