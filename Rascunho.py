@@ -7,7 +7,14 @@ import pandas as pd
 import time
 import matplotlib.pyplot as plt
 
-   
+def str_to_float(string):
+    if string.__contains__(','):
+        string = float(string.replace(',', '.'))
+        # print('s')
+        # print(type(string))
+        return(string)
+    else:
+        return(string)
 
 
 
@@ -21,6 +28,9 @@ class solar_gather_bot():
 
 
     def acess_site():
+        
+            # Acessa os site da CRESESB.
+        
         print('Acessando...')
         self.driver.get("http://www.cresesb.cepel.br/index.php?section=sundata&")
 
@@ -28,6 +38,10 @@ class solar_gather_bot():
 
 
     def put_coords(self):
+
+            # Preenche os dados de latitude e longitude no site e solicita a 
+            # atualização da pagina com os dados.
+        
         print('Logando...')
 
         lat_in = self.driver.find_element_by_xpath('//*[@id="latitude_dec"]')
@@ -41,6 +55,9 @@ class solar_gather_bot():
 
     
     def get_sun_data(self):
+
+            # Cria lista com as linhas das tabelas de radiação.
+
         print('Adquirindo os dados...')
         loc_prox = self.driver.find_element_by_xpath('//*[@id="tb_sundata"]/tbody')
         list_of_lists=[]
@@ -49,40 +66,34 @@ class solar_gather_bot():
             list=[]
             loc_element = '//*[@id="tb_sundata"]/tbody/tr[{}]/td[{}]'.format(row, 3)
             loc_string = self.driver.find_element_by_xpath(loc_element).text
-            # print('->',loc_string)
             list.append(loc_string)
 
             for element in range(8,23):
                 data_string = '//*[@id="tb_sundata"]/tbody/tr[{}]/td[{}]'.format(row, element)
                 loc_prox = self.driver.find_element_by_xpath(data_string).text
                 if loc_prox != '':
-                    # print(loc_prox)
                     list.append(loc_prox)
                 else:
-                    # print('-x-')
                     list.append('-')
             list_of_lists.append(list)
-            # print (list)
-    
-        # head = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
-
-        # df = pd.DataFrame(list_of_lists, columns =head, dtype = float)
-
-        # print(list_of_lists)
+       
         return(list_of_lists)
 
     def sun_data_database(self):
+        
+            # Cria o bando de dados com as listas de informação de radiação.
+
         base = self.get_sun_data()
-        # print('cd', base)
         head_line = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
-        df = pd.DataFrame(base, columns =head_line, dtype = float)
-        # print(df)
-        return(df)
+        tables = pd.DataFrame(base, columns =head_line, dtype = float)
+        return(tables)
 
 
+# # # # # # # # # # #
 
 
     def get_angle_data(self):
+        keys = ['x1', 'x2', 'x3', 'x4']
         print('Adquirindo os dados...')
         loc_prox = self.driver.find_element_by_xpath('//*[@id="data_output"]/table[2]/tbody') 
         list_of_lists=[]
@@ -97,18 +108,19 @@ class solar_gather_bot():
                     data_string = '//*[@id="data_output"]/table[{}]/tbody/tr[{}]/td[{}]'.format(tables, row, element)
                     loc_prox = self.driver.find_element_by_xpath(data_string).text
                     if loc_prox != '':
-                        # print(loc_prox)
-                        list.append(loc_prox)
+                        list.append(str_to_float(loc_prox))
                     else:
-                        # print('-x-')
                         list.append('-')
-                list_of_lists.append(list)
-            # print (list_of_lists)
-        
-            head = ['Ângulo', 'Inclinação', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
 
-            tables = pd.DataFrame(list_of_lists, columns =head, dtype = float)
-                
-            print(tables)
+                list_of_lists.append(list[2:14])
+
+            dictionary = dict(zip(keys, list_of_lists))
+
+            print(dictionary)
+
+
+
+            # print(list_of_lists)
+            print('')
 
          
