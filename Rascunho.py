@@ -113,14 +113,31 @@ class solar_gather_bot():
                         list.append('-')
 
                 list_of_lists.append(list[2:14])
+            print(list_of_lists)
 
             dictionary = dict(zip(keys, list_of_lists))
 
-            print(dictionary)
+            plt.plot(keys[0], list_of_lists[0], marker='', color='olive', linewidth=2)
+            plt.plot(keys[1], list_of_lists[1], marker='', color='red', linewidth=2)
+            plt.plot(keys[2], list_of_lists[2], marker='', color='blue', linewidth=2)
+            plt.plot(keys[3], list_of_lists[3], marker='', color='green', linewidth=2)
+
+            plt.legend()
+            plt.savefig('books_read.png')
+
+            # dictionary = dict(zip(keys, list_of_lists))
+
+            # print(dictionary)
+
+            # plt.plot( 'x', 'y1', data=list_of_lists[0], marker='o', markerfacecolor='blue', markersize=12, color='skyblue', linewidth=4)
+            # plt.plot( 'x', 'y2', data=list_of_lists[1], marker='', color='olive', linewidth=2)
+            # plt.plot( 'x', 'y3', data=list_of_lists[2], marker='', color='olive', linewidth=2, linestyle='dashed', label="toto")
+            # plt.legend()
+            # plt.savefig('books_read.png')
 
 
 
-            # print(list_of_lists)
+            print(list_of_lists)
             print('')
 
          
