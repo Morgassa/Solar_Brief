@@ -56,7 +56,7 @@ class solar_gather_bot():
     
     def get_sun_data(self):
 
-            # Cria lista com as linhas das tabelas de radiação.
+            # # Cria lista com as linhas das tabelas de radiação.
 
         print('Adquirindo os dados...')
         loc_prox = self.driver.find_element_by_xpath('//*[@id="tb_sundata"]/tbody')
