@@ -93,12 +93,12 @@ class solar_gather_bot():
 
 
     def get_angle_data(self):
-        keys = ['x1', 'x2', 'x3', 'x4']
+        
         print('Adquirindo os dados...')
-        loc_prox = self.driver.find_element_by_xpath('//*[@id="data_output"]/table[2]/tbody') 
-        list_of_lists=[]
+        # loc_prox = self.driver.find_element_by_xpath('//*[@id="data_output"]/table[2]/tbody') 
         
         for tables in range(2,5):
+
             list_of_lists = []
 
             for row in range(1,5):
@@ -112,32 +112,10 @@ class solar_gather_bot():
                     else:
                         list.append('-')
 
-                list_of_lists.append(list[2:14])
-            print(list_of_lists)
-
-            dictionary = dict(zip(keys, list_of_lists))
-
-            plt.plot(keys[0], list_of_lists[0], marker='', color='olive', linewidth=2)
-            plt.plot(keys[1], list_of_lists[1], marker='', color='red', linewidth=2)
-            plt.plot(keys[2], list_of_lists[2], marker='', color='blue', linewidth=2)
-            plt.plot(keys[3], list_of_lists[3], marker='', color='green', linewidth=2)
-
-            plt.legend()
-            plt.savefig('books_read.png')
-
-            # dictionary = dict(zip(keys, list_of_lists))
-
-            # print(dictionary)
-
-            # plt.plot( 'x', 'y1', data=list_of_lists[0], marker='o', markerfacecolor='blue', markersize=12, color='skyblue', linewidth=4)
-            # plt.plot( 'x', 'y2', data=list_of_lists[1], marker='', color='olive', linewidth=2)
-            # plt.plot( 'x', 'y3', data=list_of_lists[2], marker='', color='olive', linewidth=2, linestyle='dashed', label="toto")
-            # plt.legend()
-            # plt.savefig('books_read.png')
-
-
+                list_of_lists.append(list)
 
             print(list_of_lists)
+
             print('')
 
          

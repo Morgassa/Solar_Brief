@@ -8,9 +8,10 @@ Longitude = '38.8734516'
 bot = solar_gather_bot()
 
 bot.driver.get("http://www.cresesb.cepel.br/index.php?section=sundata&")
+
 bot.put_coords()
-# # print(bot.get_gata())
-# print(bot.sun_data_database())
+
+print('get_sun_data:', bot.get_sun_data())
 
 bot.get_angle_data()
 
