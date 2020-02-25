@@ -10,27 +10,36 @@ keys = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'N
 
 data = pd.DataFrame()
 
+
 meses = data['mes'] = keys
 plan_horizon = data['Plano Horizontal'] = list_of_lists[0]
 equal_latitude = data['Ângulo igual a latitude'] = list_of_lists[1]
 maior_media = data['Maior média anual'] = list_of_lists[2]
 maior_minimo = data['Maior mínimo mensal'] = list_of_lists[3]
 
-
-fig, ax = plt.subplots()
-
-ax.plot(meses, plan_horizon, color='r', linestyle='--', label='Plano Horizontal')
-ax.plot(meses, equal_latitude, color='b', linestyle='-.', label='Ângulo igual a latitude')
-ax.plot(meses, maior_media, color='g', linestyle='-', label='Maior média anual')
-ax.plot(meses, maior_minimo, color='y', linestyle='-', label='Maior mínimo mensal')
+media =data['Plano Horizontal'].median()
 
 
+fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
 
-ax.legend()
+ax1.axhline(media, color='gray', linestyle='dotted', label='Radiação Média')
+ax1.plot(meses, plan_horizon, color='r', linestyle='--', label='Plano Horizontal')
+ax2.plot(meses, equal_latitude, color='b', linestyle='-.', label='Ângulo igual a latitude')
+ax2.plot(meses, maior_media, color='g', linestyle='-', label='Maior média anual')
+ax2.plot(meses, maior_minimo, color='y', linestyle='-', label='Maior mínimo mensal')
 
-ax.set_title('Median Salary (USD) by Age')
-ax.set_xlabel('Mês')
-ax.set_ylabel('Radiação por M²')
+
+
+ax1.legend()
+ax1.set_title('Median Salary (USD) by Age')
+# ax1.set_xlabel('Mês')
+ax1.set_ylabel('Radiação por M²')
+
+
+ax2.legend()
+# ax2.set_title('Median Salary (USD) by Age')
+ax2.set_xlabel('Mês')
+ax2.set_ylabel('Radiação por M²')
 
 plt.tight_layout()
 
