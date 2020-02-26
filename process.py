@@ -31,7 +31,7 @@ ax2.plot(meses, maior_minimo, color='y', linestyle='-', label='Maior mínimo men
 
 
 ax1.legend()
-ax1.set_title('Median Salary (USD) by Age')
+ax1.set_title('Median Salary (LOLS) by Age')
 # ax1.set_xlabel('Mês')
 ax1.set_ylabel('Radiação por M²')
 

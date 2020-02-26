@@ -55,7 +55,12 @@ class solar_gather_bot():
 
     
     def get_sun_data(self):
+        data = pd.DataFrame()
 
+        head_line = ['Estação','Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        
+        nomes_colunas = data['Topo'] = head_line
+   
             # # Cria lista com as linhas das tabelas de radiação.
 
         print('Adquirindo os dados...')
@@ -76,17 +81,26 @@ class solar_gather_bot():
                 else:
                     list.append('-')
             list_of_lists.append(list)
-       
-        return(list_of_lists)
-
-    def sun_data_database(self):
         
-            # Cria o bando de dados com as listas de informação de radiação.
+        for i in list_of_lists:
+            print(i)
+            string_name = '{}_{}'.format(i[0],i[1])
+            # print(string_name, i)
+            data[string_name] = i[0:14]
 
-        base = self.get_sun_data()
-        head_line = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
-        tables = pd.DataFrame(base, columns =head_line, dtype = float)
-        return(tables)
+
+
+
+        return(data)
+
+    # def sun_data_database(self):
+        
+    #         # Cria o bando de dados com as listas de informação de radiação.
+
+    #     base = self.get_sun_data()
+    #     head_line = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
+    #     tables = pd.DataFrame(base, columns =head_line, dtype = float)
+    #     return(tables)
 
 
 # # # # # # # # # # #
@@ -118,4 +132,14 @@ class solar_gather_bot():
 
             print('')
 
-         
+
+
+
+
+        def create_dataframe(self):
+            data = pd.DataFrame()
+
+            head_line = ['Estação_Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+            
+
+    

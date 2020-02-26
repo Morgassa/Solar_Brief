@@ -11,7 +11,8 @@ bot.driver.get("http://www.cresesb.cepel.br/index.php?section=sundata&")
 
 bot.put_coords()
 
-print('get_sun_data:', bot.get_sun_data())
+print(bot.get_sun_data())
 
-bot.get_angle_data()
+# bot.get_angle_data()
+
 
