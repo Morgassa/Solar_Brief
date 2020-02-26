@@ -42,7 +42,7 @@ class solar_gather_bot():
             # Preenche os dados de latitude e longitude no site e solicita a 
             # atualização da pagina com os dados.
         
-        print('Logando...')
+        print('Logando no site...')
 
         lat_in = self.driver.find_element_by_xpath('//*[@id="latitude_dec"]')
         lat_in.send_keys('8.0113981')
@@ -55,18 +55,21 @@ class solar_gather_bot():
 
     
     def get_sun_data(self):
+            
+            # # Retorna um Dataframe com as nformação de radiação das estações e uma lista de nosmes das estações.
+
         data = pd.DataFrame()
 
         head_line = ['Estação','Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
         
-        nomes_colunas = data['Topo'] = head_line
+        nomes_colunas = data['Est_Dist'] = head_line
    
-            # # Cria lista com as linhas das tabelas de radiação.
 
-        print('Adquirindo os dados...')
+        print('Adquirindo os dados solares...')
         loc_prox = self.driver.find_element_by_xpath('//*[@id="tb_sundata"]/tbody')
         list_of_lists=[]
-   
+        stations_list=[]
+
         for row in range(1,4):
             list=[]
             loc_element = '//*[@id="tb_sundata"]/tbody/tr[{}]/td[{}]'.format(row, 3)
@@ -83,36 +86,26 @@ class solar_gather_bot():
             list_of_lists.append(list)
         
         for i in list_of_lists:
-            print(i)
+            # print(i)
             string_name = '{}_{}'.format(i[0],i[1])
-            # print(string_name, i)
+            stations_list.append(string_name)
             data[string_name] = i[0:14]
 
-
-
-
-        return(data)
-
-    # def sun_data_database(self):
-        
-    #         # Cria o bando de dados com as listas de informação de radiação.
-
-    #     base = self.get_sun_data()
-    #     head_line = ['Estação', 'Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez', 'Média', 'Delta']
-    #     tables = pd.DataFrame(base, columns =head_line, dtype = float)
-    #     return(tables)
+        return(data, stations_list)
 
 
 # # # # # # # # # # #
 
 
     def get_angle_data(self):
+
+            # # Cria um dict com as informações de radiação por inclinação de cada estação.
         
-        print('Adquirindo os dados...')
+        print('Adquirindo os dados de inclinação...')
         # loc_prox = self.driver.find_element_by_xpath('//*[@id="data_output"]/table[2]/tbody') 
         
         for tables in range(2,5):
-
+     
             list_of_lists = []
 
             for row in range(1,5):
@@ -129,17 +122,7 @@ class solar_gather_bot():
                 list_of_lists.append(list)
 
             print(list_of_lists)
+            print(self.get_sun_data()[1])
 
             print('')
 
-
-
-
-
-        def create_dataframe(self):
-            data = pd.DataFrame()
-
-            head_line = ['Estação_Distância', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
-            
-
-    
