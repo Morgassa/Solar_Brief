@@ -98,6 +98,7 @@ class solar_gather_bot():
 
 
     def get_angle_data(self):
+        resp=[]
 
             # # Cria um dict com as informações de radiação por inclinação de cada estação.
         
@@ -121,8 +122,11 @@ class solar_gather_bot():
 
                 list_of_lists.append(list)
 
-            print(list_of_lists)
-            print(self.get_sun_data()[1])
+            # print(list_of_lists)
+            # print(self.get_sun_data()[1])
+            resp.append(list_of_lists)
+            print('.')
 
-            print('')
+        # print(resp)
+        return(resp)
 
